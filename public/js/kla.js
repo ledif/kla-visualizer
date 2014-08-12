@@ -1,6 +1,6 @@
 sigma.utils.pkg('sigma.canvas.nodes');
 
-var ANIMATIONS_TIME = 50,
+var ANIMATIONS_TIME = 100,
     SRC_NODE = 0,
     FRAMES_TO_FREEZE_PER_LEVEL = 5,
     DEGREE_OF_PARALLISM = 3,
@@ -334,6 +334,12 @@ $('#btn-mesh').click(function(e) {
 
 $('#btn-rgg').click(function(e) {
   GRAPH_FILE = 'graphs/rgg.json'
+
+  changeInputGraph($(this));
+});
+
+$('#btn-ws').click(function(e) {
+  GRAPH_FILE = 'graphs/ws.json'
 
   changeInputGraph($(this));
 });
