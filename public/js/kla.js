@@ -41,6 +41,7 @@ function initializeSigma(s)
 { 
   s.graph.nodes().forEach(function(node) {
     node.level = 9999999;
+    // node.label = node.id
     node.size = 1
     node.color = "#000000"
     node.active = false;
@@ -350,4 +351,9 @@ $('#btn-nsw').click(function(e) {
   changeInputGraph($(this));
 });
 
+$('#btn-usa').click(function(e) {
+  GRAPH_FILE = 'graphs/usa.json'
+
+  changeInputGraph($(this));
+});
 
