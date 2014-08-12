@@ -1,10 +1,11 @@
 sigma.utils.pkg('sigma.canvas.nodes');
 
-var ANIMATIONS_TIME = 200,
+var ANIMATIONS_TIME = 50,
     SRC_NODE = 0,
     FRAMES_TO_FREEZE_PER_LEVEL = 5,
-    DEGREE_OF_PARALLISM = 10,
+    DEGREE_OF_PARALLISM = 3,
     REVISIT_PROBABILITY = 0.01,
+    GRAPH_FILE = 'graphs/rgg.json'
     K = 1
 
 
@@ -12,22 +13,28 @@ var totalNumLevels = 0,
     framesToFreezeForFlash = 0
 
 
+// global sigma instance
 var s;
-sigma.parsers.json('graphs/rgg.json', 
+
+function loadGraph() {
+  sigma.parsers.json(GRAPH_FILE, 
   {
-    renderer: {
-      container: document.getElementById('graph-container'),
-      type: 'canvas'
-    },
-    settings: {
-      animationsTime: ANIMATIONS_TIME
+      renderer: {
+        container: document.getElementById('graph-container'),
+        type: 'canvas'
+      },
+      settings: {
+        animationsTime: ANIMATIONS_TIME
+      }
+    }, 
+    function(sig) {
+      s = sig
+      initializeSigma(s)
     }
-  }, 
-  function(sig) {
-    s = sig
-    initializeSigma(s)
-  }
-);
+  );
+}
+
+loadGraph();
 
 var animationCallback;
 function initializeSigma(s)
@@ -49,6 +56,9 @@ function initializeSigma(s)
   s.graph.nodes()[SRC_NODE].color = "#ff00ff";
 
   bfs(s)
+
+  $('#k-slider').slider('setAttribute', 'max', totalNumLevels)
+
   totalNumLevels = Math.floor(totalNumLevels / K);
 
   s.graph.nodes().forEach(function(node) {
@@ -303,3 +313,29 @@ $('#pentalty-slider').slider().on('slide', function(e){
 
   replayAnimation()
 });
+
+function changeInputGraph(that) {
+  s.kill()
+  loadGraph();
+
+  that.removeClass('btn-default')
+  that.addClass('btn-primary')
+
+  that.siblings('button').removeClass('btn-primary')
+  that.siblings('button').addClass('btn-default')
+}
+
+// change graph inputs
+$('#btn-mesh').click(function(e) {
+  GRAPH_FILE = 'graphs/mesh.json'
+
+  changeInputGraph($(this));
+});
+
+$('#btn-rgg').click(function(e) {
+  GRAPH_FILE = 'graphs/rgg.json'
+
+  changeInputGraph($(this));
+});
+
+
