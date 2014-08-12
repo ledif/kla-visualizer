@@ -344,4 +344,10 @@ $('#btn-ws').click(function(e) {
   changeInputGraph($(this));
 });
 
+$('#btn-nsw').click(function(e) {
+  GRAPH_FILE = 'graphs/nsw.json'
+
+  changeInputGraph($(this));
+});
+
 
