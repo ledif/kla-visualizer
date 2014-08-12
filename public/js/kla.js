@@ -345,7 +345,7 @@ function changeInputGraph(that) {
 $('#btn-mesh').click(function(e) {
   GRAPH_FILE = 'graphs/mesh.json'
   SHOW_NODE_LABELS = false
-  SRC_NODE = 0
+  SRC_NODE = 143
   
   changeInputGraph($(this));
 });
