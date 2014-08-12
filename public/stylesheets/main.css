@@ -1,0 +1,38 @@
+#container {
+  height: 100%;
+}
+#graph-container {
+  height: 80%;
+  position: relative;
+}
+#controls-container {
+  text-align: center;
+  height: 10%;
+}
+#level-container {
+  position: relative;
+  height: 10%;
+}
+#level-container h1 {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+#ex1Slider .slider-selection {
+  background: #BABABA;
+}
+
+.k-controller span {
+  margin-left: 1em;
+  margin-right: 1em;
+  display: inline-block;
+}
+
+#k-equals {
+  font-family: 'Times New Roman';
+  font-style:italic;
+}
+#k-display-container {
+  font-size: 20pt;
+  padding-bottom: 20px;
+}
