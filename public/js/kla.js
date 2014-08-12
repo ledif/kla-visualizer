@@ -1,7 +1,7 @@
 sigma.utils.pkg('sigma.canvas.nodes');
 
 var ANIMATIONS_TIME = 100,
-    SRC_NODE = 0,
+    SRC_NODE = 14,
     FRAMES_TO_FREEZE_PER_LEVEL = 5,
     DEGREE_OF_PARALLISM = 3,
     REVISIT_PROBABILITY = 0.01,
@@ -44,8 +44,8 @@ function initializeSigma(s)
 { 
 
   s.bind('clickNode', function(e) {
-    var nodeId = e.data.node.id;
-    SRC_NODE = nodeId;
+    var indexOf = _.indexOf(s.graph.nodes(), e.data.node)
+    SRC_NODE = indexOf;
 
     replayAnimation()
   });
@@ -122,6 +122,7 @@ function animateStep(s)
         '</span>'
        ].join(" "));
 
+      // color each node
       s.graph.nodes().forEach(function(node) {
         if (node.touched)
           node.bfs_color = "#bbbbbb"
@@ -145,6 +146,7 @@ function animateStep(s)
       var clonedCurrentNodes = currentNodes.slice(0);
       currentNodes = []
 
+      // go through current set of nodes
       for (i = 0; i < clonedCurrentNodes.length; i++) {
         currentNode = clonedCurrentNodes[i];
         ns = allNeighbors[currentNode.id];
@@ -343,6 +345,7 @@ function changeInputGraph(that) {
 $('#btn-mesh').click(function(e) {
   GRAPH_FILE = 'graphs/mesh.json'
   SHOW_NODE_LABELS = false
+  SRC_NODE = 0
   
   changeInputGraph($(this));
 });
@@ -350,13 +353,15 @@ $('#btn-mesh').click(function(e) {
 $('#btn-rgg').click(function(e) {
   GRAPH_FILE = 'graphs/rgg.json'
   SHOW_NODE_LABELS = false
-  
+  SRC_NODE = 14
+
   changeInputGraph($(this));
 });
 
 $('#btn-ws').click(function(e) {
   GRAPH_FILE = 'graphs/ws.json'
   SHOW_NODE_LABELS = false
+  SRC_NODE = 0
 
   changeInputGraph($(this));
 });
@@ -364,14 +369,16 @@ $('#btn-ws').click(function(e) {
 $('#btn-nsw').click(function(e) {
   GRAPH_FILE = 'graphs/nsw.json'
   SHOW_NODE_LABELS = false
-  
+  SRC_NODE = 0
+
   changeInputGraph($(this));
 });
 
 $('#btn-usa').click(function(e) {
   GRAPH_FILE = 'graphs/usa.json'
   SHOW_NODE_LABELS = true
-  
+  SRC_NODE = 84
+
   changeInputGraph($(this));
 });
 
