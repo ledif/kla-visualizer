@@ -5,7 +5,8 @@ var ANIMATIONS_TIME = 100,
     FRAMES_TO_FREEZE_PER_LEVEL = 5,
     DEGREE_OF_PARALLISM = 3,
     REVISIT_PROBABILITY = 0.01,
-    GRAPH_FILE = 'graphs/rgg.json'
+    GRAPH_FILE = 'graphs/rgg.json',
+    SHOW_NODE_LABELS = false,
     K = 1
 
 
@@ -31,14 +32,24 @@ function loadGraph() {
       s = sig
       initializeSigma(s)
     }
-  );
+  )
 }
 
 loadGraph();
 
+
+
 var animationCallback;
 function initializeSigma(s)
 { 
+
+  s.bind('clickNode', function(e) {
+    var nodeId = e.data.node.id;
+    SRC_NODE = nodeId;
+
+    replayAnimation()
+  });
+
   s.graph.nodes().forEach(function(node) {
     node.level = 9999999;
     // node.label = node.id
@@ -48,6 +59,8 @@ function initializeSigma(s)
     node.touched = false;
     node.type = ""
     node.star = {}
+    if (SHOW_NODE_LABELS)
+      node.label = node.id
   })
 
   CustomShapes.init(s);
@@ -103,7 +116,7 @@ function animateStep(s)
       // update the superstep label
       $("#levelCount").html([
         '<span class="label label-primary" style="background-color: ',
-        RainBowColor(currentLevel, totalNumLevels),
+        RainBowColor(currentLevel, totalNumLevels+1),
         '">',
         (currentLevel+1),
         '</span>'
@@ -329,31 +342,36 @@ function changeInputGraph(that) {
 // change graph inputs
 $('#btn-mesh').click(function(e) {
   GRAPH_FILE = 'graphs/mesh.json'
-
+  SHOW_NODE_LABELS = false
+  
   changeInputGraph($(this));
 });
 
 $('#btn-rgg').click(function(e) {
   GRAPH_FILE = 'graphs/rgg.json'
-
+  SHOW_NODE_LABELS = false
+  
   changeInputGraph($(this));
 });
 
 $('#btn-ws').click(function(e) {
   GRAPH_FILE = 'graphs/ws.json'
+  SHOW_NODE_LABELS = false
 
   changeInputGraph($(this));
 });
 
 $('#btn-nsw').click(function(e) {
   GRAPH_FILE = 'graphs/nsw.json'
-
+  SHOW_NODE_LABELS = false
+  
   changeInputGraph($(this));
 });
 
 $('#btn-usa').click(function(e) {
   GRAPH_FILE = 'graphs/usa.json'
-
+  SHOW_NODE_LABELS = true
+  
   changeInputGraph($(this));
 });
 
