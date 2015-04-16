@@ -19,7 +19,7 @@ Requires
 
 To install the correct npms:
 ```
-npm install express morgan --save
+npm install
 ```
 
 Run
